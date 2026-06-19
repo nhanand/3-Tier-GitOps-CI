@@ -190,8 +190,11 @@ jobs:
       - name: Commit & push to CD repo
         working-directory: cd
         run: |
-          git config user.name "ci-bot"
-          git config user.email "ci-bot@users.noreply.github.com"
-          git add -A
-          git commit -m "bump images to ${IMAGE_TAG}" || echo "no changes"
-          git push
+         - run: |
+            git config user.name "ci-bot"
+            git config user.email "ci-bot@example.com"
+            git fetch origin main
+            git rebase origin/main
+            git add .
+            git commit -m "bump images" || exit 0
+            git push origin main
