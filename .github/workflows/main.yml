@@ -27,11 +27,13 @@ jobs:
       - name: Frontend Compilation (Syntax Check)
         run: |
           cd client
-          find . -name "*.js" -exec node --check {} +
+          npm ci
+          npm run lint
       - name: Backend Compilation (Syntax Check)
         run: |
           cd api
-          find . -name "*.js" -exec node --check {} +
+          npm ci
+          npm run lint
   gitleaks-scan:
     runs-on: ubuntu-latest
     needs: compile
